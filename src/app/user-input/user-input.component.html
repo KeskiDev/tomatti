@@ -1,0 +1,27 @@
+<div class="row">
+
+  <div class="col-md-4">
+    <div class="row">
+      <div class="col-md-6">
+        <form [formGroup] = "timerForm" (ngSubmit)="startTimer()">
+          <input class="form-control" id="sessionTimer" type="number"
+            placeholder="How long to focus..."
+            formControlName = "sessionTimer"
+          />
+        </form>
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-primary" type="submit" style="width:80px; margin-left:10px;">Start</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- make it take up a lot of space vertical wise-->
+  <div class="col-md-6 col-md-offset-1">
+    <div class="row" *ngIf="timerRunning">
+      <label style="font-size: larger; color: darkblue;">{{minutesToFocus$ | minuteSeconds | async}}</label><span style="margin-left:25px;">seconds</span>
+    </div>
+  </div>
+</div>
+
