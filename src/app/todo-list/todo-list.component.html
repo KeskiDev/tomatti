@@ -2,7 +2,7 @@
 
 <!-- blank todo option-->
 <div class="row">
-  <div class="col-xs-4">
+  <div class="col-xs-8">
     <form [formGroup] = "TODOForm">
       <input class="form-control"
         type="text" id="inputTODO"
@@ -17,18 +17,18 @@
 <!-- list of inputed todo-->
 <div class="row" *ngFor="let todo of todoList">
   <br/>
-  <div class="col-md-1">
+  <div class="col-md-1 col-xs-2">
     <button id="done_{{todo}}" class="btn btn-primary" (click)="markDone(todo)">Done!</button>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-6 col-xs-8">
     <span style="font-size: medium; font-weight:bold">{{todo}}</span>
   </div>
 </div>
 
 <br />
 <div class="row">
-  <div class="col-xs-1 col-md-offset-1">
-    <button class="btn btn-primary" id="clearToDoButton" (click)="clearToDos()" >
+  <div class="col-xs-1 col-md-offset-1 col-xs-2">
+    <button class="btn btn-danger" id="clearToDoButton" (click)="clearToDos()" >
       done with it all
     </button>
   </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import { Timer } from './Timer';
-import { Observable,timer } from 'rxjs';
+import { Observable,timer, onErrorResumeNext } from 'rxjs';
 import {take,map} from 'rxjs/operators';
 
 @Component({
@@ -16,6 +16,7 @@ export class UserInputComponent implements OnInit {
   secondsToFocus$: Observable<number>
   timerRunning = false;
   theTime = 0;
+  interval;
 
   constructor() {}
 
@@ -23,7 +24,6 @@ export class UserInputComponent implements OnInit {
     this.timerForm = new FormGroup({
       sessionTimer: new FormControl()
     });
-
   }
 
   startTimer(){
@@ -39,13 +39,14 @@ export class UserInputComponent implements OnInit {
   }
 
   runTimer(): void{
-
-
-
     this.minutesToFocus$ = timer(0,1000).pipe(
       take(this.theTime),
-      map(() => this.theTime == 0 ? 0 : this.theTime--)
+      map(() => this.theTime < 1 ? 0 : this.theTime--)
     );
+  }
+
+  stopTimer():void{
+    this.theTime = 0;
   }
 
 }

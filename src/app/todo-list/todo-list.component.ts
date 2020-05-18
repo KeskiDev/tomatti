@@ -28,8 +28,6 @@ export class TodoListComponent implements OnInit {
   addToDo(): void{
     this.todoList.push(this.TODOForm.value.inputTODO);
     this.TODOForm.setValue({inputTODO:null});
-
-    console.log(this.todoList);
   }
 
   markDone(todoName): void{
