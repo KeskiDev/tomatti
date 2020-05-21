@@ -6,15 +6,13 @@ import { UserInputComponent } from './user-input/user-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { MinuteSecondsPipe } from './minuteseconds.pipe';
-import { InputToCountdown } from './user-input/inputToCountdown.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserInputComponent,
     TodoListComponent,
-    MinuteSecondsPipe,
-    InputToCountdown
+    MinuteSecondsPipe
   ],
   imports: [
     BrowserModule,

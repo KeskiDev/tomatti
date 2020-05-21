@@ -3,7 +3,6 @@ import {FormGroup, FormControl} from '@angular/forms';
 import { Timer } from './Timer';
 import { Observable,timer, onErrorResumeNext } from 'rxjs';
 import {take,map} from 'rxjs/operators';
-import { InputToCountdownDirective } from './inputToCountdown.directive';
 
 @Component({
   selector: 'app-user-input',
@@ -11,12 +10,43 @@ import { InputToCountdownDirective } from './inputToCountdown.directive';
   styleUrls: ['./user-input.component.css']
 })
 export class UserInputComponent implements OnInit {
+  timerForm: FormGroup;
+  timerClass = new Timer();
+  minutesToFocus$: Observable<number>;
+  secondsToFocus$: Observable<number>
+  timerRunning = false;
+  theTime = 0;
+  interval;
 
-  constructor(public d: InputToCountdownDirective) {}
+  constructor() {}
 
   ngOnInit(): void {
+    this.timerForm = new FormGroup({
+      sessionTimer: new FormControl()
+    });
   }
 
+  startTimer(){
+    this.theTime =this.timerForm.value.sessionTimer * 60;
 
+
+    //this.theTime = this.timerForm.value.sessionTimer - 1;
+    this.timerForm.setValue({sessionTimer:null})
+
+    this.timerRunning = true;
+
+    this.runTimer();
+  }
+
+  runTimer(): void{
+    this.minutesToFocus$ = timer(0,1000).pipe(
+      take(this.theTime),
+      map(() => this.theTime < 1 ? 0 : this.theTime--)
+    );
+  }
+
+  stopTimer():void{
+    this.theTime = 0;
+  }
 
 }
