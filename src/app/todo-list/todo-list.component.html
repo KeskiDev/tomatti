@@ -14,13 +14,22 @@
   </div>
 </div>
 
+<br />
+<div class="row">
+  <div class="col-xs-3">
+    <span style="font-weight: bold; font-size:large; margin-right:15px;">Jobs Done:</span>
+    <span style="font-size:large; font-weight:bold">{{jobsDone}}/{{todoItemNumber}}</span>
+  </div>
+</div>
+
+<br />
 <!-- list of inputed todo-->
 <div class="row" *ngFor="let todo of todoList">
   <br/>
   <div class="col-md-1 col-xs-2">
-    <button id="done_{{todo}}" class="btn btn-primary" (click)="markDone(todo)">Done!</button>
+    <button id="done_{{todo}}" class="btn btn-primary btn-lg" (click)="markDone(todo)">Done!</button>
   </div>
-  <div class="col-md-6 col-xs-8">
+  <div class="col-md-6 col-xs-8" style="margin-top:10px;">
     <span style="font-size: medium; font-weight:bold">{{todo}}</span>
   </div>
 </div>
@@ -28,7 +37,7 @@
 <br />
 <div class="row">
   <div class="col-xs-1 col-md-offset-1 col-xs-2">
-    <button class="btn btn-danger" id="clearToDoButton" (click)="clearToDos()" >
+    <button class="btn btn-success btn-lg" id="clearToDoButton" (click)="clearToDos()" >
       done with it all
     </button>
   </div>

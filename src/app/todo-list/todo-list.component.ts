@@ -11,6 +11,7 @@ export class TodoListComponent implements OnInit {
   todoList: String[] = [];
   TODOForm: FormGroup;
   todoItemNumber = 0;
+  jobsDone = 0
 
   constructor() { }
 
@@ -28,11 +29,13 @@ export class TodoListComponent implements OnInit {
   addToDo(): void{
     this.todoList.push(this.TODOForm.value.inputTODO);
     this.TODOForm.setValue({inputTODO:null});
+    this.todoItemNumber++;
   }
 
   markDone(todoName): void{
     var index = this.todoList.indexOf(todoName);
     this.todoList.splice(index,1);
+    this.jobsDone++;
   }
 
 }
