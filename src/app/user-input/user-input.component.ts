@@ -12,9 +12,8 @@ import {take,map} from 'rxjs/operators';
 export class UserInputComponent implements OnInit {
   timerForm: FormGroup;
   timerClass = new Timer();
-  minutesToFocus$: Observable<number>;
-  secondsToFocus$: Observable<number>
   timerRunning = false;
+  showTheClock = false;
   theTime = 0;
   interval;
 
@@ -29,24 +28,47 @@ export class UserInputComponent implements OnInit {
   startTimer(){
     this.theTime =this.timerForm.value.sessionTimer * 60;
 
-
-    //this.theTime = this.timerForm.value.sessionTimer - 1;
     this.timerForm.setValue({sessionTimer:null})
 
+    this.showTheClock = true;
     this.timerRunning = true;
+    clearInterval(this.interval);
 
     this.runTimer();
   }
 
+  addTime(mintues):void{
+    this.theTime = mintues * 60;
+    this.showTheClock = true;
+    this.timerRunning = true;
+    clearInterval(this.interval);
+    this.runTimer();
+  }
+
   runTimer(): void{
-    this.minutesToFocus$ = timer(0,1000).pipe(
-      take(this.theTime),
-      map(() => this.theTime < 1 ? 0 : this.theTime--)
-    );
+    this.interval = setInterval(() => {
+      if(this.theTime > 0){
+          this.theTime--;
+      }
+      else if(this.theTime <= 0 && this.timerRunning){
+        clearInterval(this.interval);
+        this.allDone();
+        this.theTime = 0;
+        this.timerRunning = false;
+      }
+    }, 1000);
   }
 
   stopTimer():void{
     this.theTime = 0;
+    this.timerRunning = false;
+  }
+
+  allDone():void{
+    let doneAudio =new Audio();
+    doneAudio.src = "../assets/audio/allDone.wav";
+    doneAudio.load();
+    doneAudio.play();
   }
 
 }
